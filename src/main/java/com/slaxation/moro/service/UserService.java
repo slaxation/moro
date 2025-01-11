@@ -57,7 +57,6 @@ public class UserService {
         UserEntity user = new UserEntity();
         user.setUsername(inputUserRequestDTO.getUsername());
         user.setPassword(passwordEncoder.encode(inputUserRequestDTO.getPassword()));
-        userRepository.save(user);
 
         return userMapper.entityToDto(userRepository.save(user));
     }
@@ -86,7 +85,7 @@ public class UserService {
         UserEntity user = u.get();
 
         //patch User
-        inputUserRequestMapper.entityToDto(userRequest, user);
+        inputUserRequestMapper.dtoToEntity(userRequest, user);
 
         //persist changes
         final UserEntity savedUser = userRepository.save(user);
@@ -100,6 +99,16 @@ public class UserService {
 
     }
 
+    public void deleteUser(String username) {
+
+        String msg = String.format("User: " + username + " was not found.");
+
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException(GenericErrorCode.NOT_FOUND_ERROR.toString(), msg));
+
+        userRepository.delete(user);
+        SecurityContextHolder.clearContext();
+    }
 
     private UserDetails getLoggedInUser() {
         return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

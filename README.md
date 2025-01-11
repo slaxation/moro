@@ -3,7 +3,7 @@
 
 This guide will walk you through setting up PostgreSQL for your application using Docker. It covers two scenarios:
 1. **Docker is installed** and running on your machine.
-2. **Docker is not installed** and you need to install or configure it.
+2. **Docker is not installed**, and you need to install or configure it.
 
 ---
 ## 1. **Docker Installed and Running**
@@ -34,7 +34,7 @@ Once Docker is running, you can launch a PostgreSQL container.
 Navigate to src/main/resources and execute these commands.
 
 ```bash
-docker docker build -t user-management-db .
+docker  build -t user-management-db .
 ```
 ```bash
 docker run --name task-container -e POSTGRES_PASSWORD=bar  -p 5432:5432 -d user-management-db
@@ -46,10 +46,11 @@ This will:
 - Expose port `5432` to interact with the PostgreSQL database.
 - Run it in the background (`-d`).
 
+**Jump to Step 3.**
 
 ---
 
-## 2. **Docker Not Installed**
+# 2. **Docker Not Installed**
 
 If Docker is not installed on your machine, follow these steps to install and configure it.
 
@@ -89,12 +90,14 @@ docker docker build -t user-management-db .
 docker run --name task-container -e POSTGRES_PASSWORD=bar  -p 5432:5432 -d user-management-db
 ```
 ---
-# Step 3. Start the application
+# 3. Start the application
 ### 1. Navigate to root (pom.xml directory) and execute:
 ```bash
 mvn clean compile
 ```
 ### 2. run the application - src/main/java/com/slaxation/moro/MoroApplication.java
+
+#  4. Testing 
 
 
 

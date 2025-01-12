@@ -1,9 +1,9 @@
 package com.slaxation.moro.mapper;
 
 import com.slaxation.moro.dto.InputUserRequestDTO;
-import com.slaxation.moro.mapper.service.PasswordEncoderService;
 import com.slaxation.moro.model.UserEntity;
 import org.mapstruct.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Mapper(componentModel = "spring")
 public interface InputUserRequestMapper extends EntityDTOMapper<UserEntity, InputUserRequestDTO> {
@@ -18,7 +18,7 @@ public interface InputUserRequestMapper extends EntityDTOMapper<UserEntity, Inpu
     // Custom method for encoding passwords
     @Named("encodePassword")
     default String encodePassword(String password) {
-        PasswordEncoderService passwordEncoderService = new PasswordEncoderService();
-        return passwordEncoderService.encodePassword(password);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 }

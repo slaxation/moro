@@ -9,6 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -26,6 +28,11 @@ public class UserController {
         return userService.updateLoggedInUser(userRequest);
     }
 
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
     @PostMapping("/create")
     public UserDTO createUser(@RequestBody InputUserRequestDTO inputUserRequestDTO) {
         return userService.createUser(inputUserRequestDTO);
@@ -33,7 +40,6 @@ public class UserController {
 
     @DeleteMapping("/self-delete")
     public void deleteOwnUserAccount(@AuthenticationPrincipal User user) {
-        // Use the username from the authenticated user
         userService.deleteUser(user.getUsername());
     }
 }

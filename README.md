@@ -84,7 +84,7 @@ If Docker is not installed on your machine, follow these steps to install and co
 Navigate to src/main/resources and execute these commands.
 
 ```bash
-docker docker build -t user-management-db .
+docker build -t user-management-db .
 ```
 ```bash
 docker run --name task-container -e POSTGRES_PASSWORD=bar  -p 5432:5432 -d user-management-db
@@ -98,6 +98,71 @@ mvn clean compile
 ### 2. run the application - src/main/java/com/slaxation/moro/MoroApplication.java
 
 #  4. Testing 
+
+### To test this (using e.g. Postman) use:
+Basic Authorization
+
+## Create User:
+   - POST
+   - Unauthorized
+```
+localhost:8080/users/create
+```
+Body:
+```
+{
+    "username": "user1",
+    "name": null,
+    "password": "test1"
+}
+```
+
+## Get by Id:
+- GET
+- Authorization - Basic
+  - **ussername** - admin
+  - **password** -  test
+  
+```
+localhost:8080/users/id/{id}
+```
+## Get All:
+- GET
+- Authorization - Basic
+   - **ussername** - admin
+   - **password** -  test
+
+```
+localhost:8080/users/all
+```
+## Update:
+- POST
+- Authorization - Basic
+   - **ussername** - admin
+   - **password** -  test
+
+```
+localhost:8080/users/update
+```
+Body:
+```
+{
+  "username": "admin",
+  "password": "test1",
+  "name": "admin"
+}
+```
+
+## Self delete:
+- DELETE
+- Authorization - Basic 
+- here - keep in mind you can have different credentials after executing previous steps
+   - **ussername** - admin
+   - **password** -  test
+```
+localhost:8080/users/self-delete
+```
+
 
 
 

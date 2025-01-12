@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Mapper(componentModel = "spring")
 public interface InputUserRequestMapper extends EntityDTOMapper<UserEntity, InputUserRequestDTO> {
 
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
@@ -18,7 +19,6 @@ public interface InputUserRequestMapper extends EntityDTOMapper<UserEntity, Inpu
     // Custom method for encoding passwords
     @Named("encodePassword")
     default String encodePassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
 }
